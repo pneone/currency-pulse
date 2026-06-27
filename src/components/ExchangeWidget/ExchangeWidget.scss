@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.exchange-widget__title {
+  @apply font-medium text-[28px] mb-2;
+}
+
+.exchange-widget__info {
+  @apply text-secondary mb-6;
+}

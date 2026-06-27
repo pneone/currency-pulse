@@ -10,4 +10,11 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use 'sass:math';`,
+      },
+    },
+  },
 });
