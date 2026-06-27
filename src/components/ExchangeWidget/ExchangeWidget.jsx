@@ -2,59 +2,83 @@ import { useState } from "react";
 import "currency-flags/dist/currency-flags.css";
 import { useCurrencies } from "../../hooks/useCurrencies";
 import { useRates } from "../../hooks/useRates";
-import { ChevronDown, FastForward } from "lucide-react";
+import { ArrowUpDown, Loader } from "lucide-react";
 import { ExchangeItem } from "../ExchangeItem/ExchangeItem";
 
 export function ExchangeWidget() {
-  const [baseCurrency, setBaseCurrency] = useState("AUD");
+  const [baseCurrency, setBaseCurrency] = useState("USD");
   const [baseCurrencySymbol, setBaseCurrencySymbol] = useState("$");
-  const [quoteCurrency, setQuoteCurrency] = useState("USD");
-  const [quoteCurrencySymbol, setQuoteCurrencySymbol] = useState("$");
+  const [quoteCurrency, setQuoteCurrency] = useState("UAH");
+  const [quoteCurrencySymbol, setQuoteCurrencySymbol] = useState("₴");
   const [amount, setAmount] = useState(1000);
 
   const [isOpenBaseSelect, setIsOpenBaseSelect] = useState(false);
   const [isOpenQuoteSelect, setIsOpenQuoteSelect] = useState(false);
 
-  //   const { rate, isRateLoading, isRateError } = useRates(
-  //     baseCurrency,
-  //     quoteCurrency,
-  //   );
+  const { data: ratesData, isLoading: isRatesLoading } = useRates(
+    baseCurrency,
+    quoteCurrency,
+  );
+
+  const rate = ratesData?.[0]?.rate ?? null;
+  const convertedAmount = rate ? (amount * rate).toFixed(2) : "";
 
   const { data, isLoading } = useCurrencies();
-  console.log(data);
 
   return (
     <div className="exchange-widget card">
       <h2 className="exchange-widget__title">Sell {baseCurrency}</h2>
       <p className="exchange-widget__info">
-        1 {baseCurrency} = {quoteCurrency}
+        1 {baseCurrency} ={" "}
+        {isRatesLoading ? (
+          <Loader size={16} className="exchange-widget__loader" />
+        ) : (
+          rate
+        )}{" "}
+        {quoteCurrency}
       </p>
 
-      <ExchangeItem
-        amount={amount}
-        setAmount={setAmount}
-        isOpenSelect={isOpenBaseSelect}
-        setIsOpenSelect={setIsOpenBaseSelect}
-        data={data}
-        currency={baseCurrency}
-        setCurrency={setBaseCurrency}
-        isLoading={isLoading}
-        currencySymbol={baseCurrencySymbol}
-        setCurrencySymbol={setBaseCurrencySymbol}
-      />
+      <div className="exchange-widget__items">
+        <ExchangeItem
+          amount={amount}
+          setAmount={setAmount}
+          isOpenSelect={isOpenBaseSelect}
+          setIsOpenSelect={setIsOpenBaseSelect}
+          data={data}
+          currency={baseCurrency}
+          setCurrency={setBaseCurrency}
+          isLoading={isLoading}
+          isRatesLoading={isRatesLoading}
+          currencySymbol={baseCurrencySymbol}
+          setCurrencySymbol={setBaseCurrencySymbol}
+        />
 
-      <ExchangeItem
-        amount={amount}
-        setAmount={setAmount}
-        isOpenSelect={isOpenQuoteSelect}
-        setIsOpenSelect={setIsOpenQuoteSelect}
-        data={data}
-        currency={quoteCurrency}
-        setCurrency={setQuoteCurrency}
-        isLoading={isLoading}
-        currencySymbol={quoteCurrencySymbol}
-        setCurrencySymbol={setQuoteCurrencySymbol}
-      />
+        <div className="exchange-widget__direction">
+          <button
+            className="button"
+            onClick={() => {
+              setBaseCurrency(quoteCurrency);
+              setQuoteCurrency(baseCurrency);
+            }}
+          >
+            <ArrowUpDown size={20} />
+          </button>
+        </div>
+
+        <ExchangeItem
+          amount={convertedAmount}
+          readOnly={true}
+          isOpenSelect={isOpenQuoteSelect}
+          setIsOpenSelect={setIsOpenQuoteSelect}
+          data={data}
+          currency={quoteCurrency}
+          setCurrency={setQuoteCurrency}
+          isLoading={isLoading}
+          isRatesLoading={isRatesLoading}
+          currencySymbol={quoteCurrencySymbol}
+          setCurrencySymbol={setQuoteCurrencySymbol}
+        />
+      </div>
     </div>
   );
 }

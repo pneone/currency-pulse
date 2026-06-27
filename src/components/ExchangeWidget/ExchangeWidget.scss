@@ -6,4 +6,30 @@
 
 .exchange-widget__info {
   @apply text-secondary mb-6;
+
+  .exchange-widget__loader {
+    @apply inline;
+  }
+}
+
+.exchange-widget__items {
+  @apply relative;
+}
+
+.exchange-widget__direction {
+  @apply absolute w-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10;
+
+  .button {
+    @apply w-8.5 h-8.5 rounded-full flex items-center z-10 justify-center relative;
+  }
+
+  &:before {
+    content: "";
+    @apply w-12 h-12 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white z-1 border border-grey rounded-full;
+  }
+
+  &:after {
+    content: "";
+    @apply w-20 h-2 z-2 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute;
+  }
 }

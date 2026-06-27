@@ -1,5 +1,27 @@
 .exchange-widget__curency {
-  @apply bg-[#FAFAFA] p-3 border border-grey rounded-[30px] my-2;
+  @apply bg-[#FAFAFA] p-3 border border-grey rounded-[30px] my-2 relative;
+
+  &:before {
+    content: "";
+    @apply w-[60px] h-[60px] bg-[#FAFAFA] border border-grey rounded-full -bottom-1 left-1/2 -translate-x-1/2 translate-y-1/2 absolute;
+  }
+
+  &:after {
+    content: "";
+    @apply w-[70%] h-3 bg-[#FAFAFA] bottom-0 left-1/2 -translate-x-1/2 absolute z-1;
+  }
+
+  &:last-child {
+    &:before {
+      content: "";
+      @apply -top-1 -translate-y-1/2;
+    }
+
+    &:after {
+      content: "";
+      @apply top-0;
+    }
+  }
 }
 
 .exchange-widget__curency-wrapper {
@@ -22,7 +44,7 @@
   @apply relative;
 
   .currency-flag {
-    @apply w-7.5 h-5.5 rounded-[5px];
+    @apply w-5.5 h-5.5 rounded-full bg-center;
   }
 
   select {
@@ -31,19 +53,19 @@
 }
 
 .exchange-widget__selected {
-  @apply font-medium text-[24px];
+  @apply font-medium text-[22px];
 }
 
 .exchange-widget__select-btn {
-  @apply flex items-center gap-3;
+  @apply flex items-center gap-3 cursor-pointer hover:scale-[102%] transition-all duration-300;
 }
 
 .exchange-widget__options {
-  @apply absolute max-h-100 overflow-y-auto overflow-x-clip bg-white border border-grey rounded-[20px] py-5 z-10 min-w-50 flex flex-col top-full right-0;
+  @apply absolute max-h-80 overflow-y-auto overflow-x-clip bg-white border border-grey rounded-[20px] py-5 min-w-50 flex flex-col top-full right-0 z-20;
 }
 
 .exchange-widget__option {
-  @apply flex items-center gap-4 py-2 cursor-pointer hover:scale-[102%] transition-all duration-300 px-5  hover:bg-grey;
+  @apply flex items-center gap-4 py-2 cursor-pointer hover:scale-[102%] transition-all duration-300 px-5 hover:bg-grey;
 }
 
 .exchange-widget__loader {

@@ -17,9 +17,14 @@
 }
 
 .wrapper {
-  @apply bg-[#FAFAFA] border border-grey rounded-[20px] px-11.25 py-35 w-[70%] mx-auto;
+  @apply bg-[#FAFAFA] border border-grey rounded-[20px] px-11.25 py-35 w-full;
 }
 
 .card {
   @apply rounded-[30px] bg-white border border-grey p-7.5 max-w-[45%] mx-auto;
+}
+
+.button {
+  @apply bg-green border border-green-darken cursor-pointer;
+  @apply hover:scale-[102%] hover:bg-grey transition-all duration-300;
 }

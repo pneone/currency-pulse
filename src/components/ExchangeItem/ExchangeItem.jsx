@@ -9,23 +9,44 @@ export function ExchangeItem({
   currency,
   setCurrency,
   isLoading = true,
+  isRatesLoading = true,
+  readOnly = false,
   currencySymbol,
   setCurrencySymbol,
 }) {
   return (
     <div className="exchange-widget__curency">
       <div className="exchange-widget__curency-wrapper">
-        <div className="exchange-widget__input">
-          <div className="exchange-widget__symbol">{currencySymbol}</div>
-          <input
-            type="number"
-            placeholder="0.00"
-            value={amount}
-            onChange={(e) => {
-              setAmount(e.target.value);
-            }}
-          />
-        </div>
+        {isRatesLoading ? (
+          <Loader className="exchange-widget__loader" />
+        ) : (
+          <div className="exchange-widget__input">
+            <div className="exchange-widget__symbol">{currencySymbol}</div>
+            <input
+              type="number"
+              min="0"
+              max="1000000"
+              placeholder="0.00"
+              value={amount}
+              readOnly={readOnly}
+              onKeyDown={(e) => {
+                if (["-", "+", "e", "E"].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={
+                readOnly
+                  ? undefined
+                  : (e) => {
+                      const value = e.target.value;
+                      if (value < 0) return;
+                      if (value > 1_000_000) return;
+                      setAmount(value);
+                    }
+              }
+            />
+          </div>
+        )}
 
         {isLoading ? (
           <Loader className="exchange-widget__loader" />
