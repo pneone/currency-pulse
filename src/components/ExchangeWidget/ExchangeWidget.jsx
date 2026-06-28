@@ -1,11 +1,10 @@
 import { useState } from "react";
 import "currency-flags/dist/currency-flags.css";
-import { useCurrencies } from "../../hooks/useCurrencies";
 import { useRates } from "../../hooks/useRates";
 import { ArrowUpDown, Loader } from "lucide-react";
 import { ExchangeItem } from "../ExchangeItem/ExchangeItem";
 
-export function ExchangeWidget() {
+export function ExchangeWidget({ currencies, isLoadingCurrencies }) {
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [baseCurrencySymbol, setBaseCurrencySymbol] = useState("$");
   const [quoteCurrency, setQuoteCurrency] = useState("UAH");
@@ -23,18 +22,12 @@ export function ExchangeWidget() {
   const rate = ratesData?.[0]?.rate ?? null;
   const convertedAmount = rate ? (amount * rate).toFixed(2) : "";
 
-  const { data, isLoading } = useCurrencies();
-
   return (
     <div className="exchange-widget card">
       <h2 className="exchange-widget__title">Sell {baseCurrency}</h2>
       <p className="exchange-widget__info">
         1 {baseCurrency} ={" "}
-        {isRatesLoading ? (
-          <Loader size={16} className="exchange-widget__loader" />
-        ) : (
-          rate
-        )}{" "}
+        {isRatesLoading ? <Loader size={16} className="loader" /> : rate}{" "}
         {quoteCurrency}
       </p>
 
@@ -44,10 +37,10 @@ export function ExchangeWidget() {
           setAmount={setAmount}
           isOpenSelect={isOpenBaseSelect}
           setIsOpenSelect={setIsOpenBaseSelect}
-          data={data}
+          data={currencies}
           currency={baseCurrency}
           setCurrency={setBaseCurrency}
-          isLoading={isLoading}
+          isLoading={isLoadingCurrencies}
           isRatesLoading={isRatesLoading}
           currencySymbol={baseCurrencySymbol}
           setCurrencySymbol={setBaseCurrencySymbol}
@@ -70,10 +63,10 @@ export function ExchangeWidget() {
           readOnly={true}
           isOpenSelect={isOpenQuoteSelect}
           setIsOpenSelect={setIsOpenQuoteSelect}
-          data={data}
+          data={currencies}
           currency={quoteCurrency}
           setCurrency={setQuoteCurrency}
-          isLoading={isLoading}
+          isLoading={isLoadingCurrencies}
           isRatesLoading={isRatesLoading}
           currencySymbol={quoteCurrencySymbol}
           setCurrencySymbol={setQuoteCurrencySymbol}

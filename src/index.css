@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./components/ExchangeWidget/ExchangeWidget.scss";
 @import "./components/ExchangeItem/ExchangeItem.scss";
+@import "./components/CurrencyCard/CurrencyCard.scss";
 
 @theme {
   --color-primary: #262e39;
@@ -18,13 +19,18 @@
 
 .wrapper {
   @apply bg-[#FAFAFA] border border-grey rounded-[20px] px-11.25 py-35 w-full;
+  @apply flex gap-10 justify-between;
 }
 
 .card {
-  @apply rounded-[30px] bg-white border border-grey p-7.5 max-w-[45%] mx-auto;
+  @apply rounded-[30px] bg-white border border-grey p-7.5 flex-1;
 }
 
 .button {
   @apply bg-green border border-green-darken cursor-pointer;
   @apply hover:scale-[102%] hover:bg-grey transition-all duration-300;
+}
+
+.loader {
+  @apply animate-spin;
 }

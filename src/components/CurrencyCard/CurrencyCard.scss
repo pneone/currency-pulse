@@ -1,0 +1,48 @@
+.currency-card__head {
+  @apply pt-[60px] relative  mb-5;
+}
+
+.currency-card__select {
+  @apply bg-[#FAFAFA] border border-grey p-1 pb-0 rounded-[16px] min-w-[350px] w-fit absolute top-0 z-10;
+}
+
+.currency-card__select--open {
+  .currency-card__options {
+    @apply max-h-[300px] opacity-100 mb-1;
+  }
+}
+
+.currency-card__selected {
+  @apply cursor-pointer w-full bg-white border border-grey rounded-[12px];
+  @apply flex gap-2 items-center p-1.5 font-medium text-secondary;
+
+  .currency-flag {
+    @apply w-[35px] h-[25px] bg-center rounded-[7px];
+  }
+}
+
+.currency-card__selected-arrow {
+  @apply bg-[#FAFAFA] border border-grey px-1.5 rounded-[8px] ml-auto;
+}
+
+.currency-card__options {
+  @apply bg-white border border-grey rounded-[12px] max-h-0 overflow-auto mt-0.5 opacity-0;
+  @apply flex flex-col transition-all duration-300;
+}
+
+.currency-card__option {
+  @apply flex gap-2 w-full p-1.5 cursor-pointer items-center;
+  @apply hover:bg-[#FAFAFA];
+}
+
+.currency-card__price {
+  @apply text-[40px] mb-4;
+}
+
+.currency-card__chart {
+  @apply border border-grey rounded-[20px] p-3 h-60;
+}
+
+.currency-card__tooltip {
+  @apply bg-white border border-grey rounded-[12px] p-2 italic;
+}

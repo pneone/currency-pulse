@@ -28,7 +28,7 @@ export const getHistory = async (baseCurrency, days = 7) => {
   const fromDate = from.toISOString().split("T")[0];
 
   const response = await fetch(
-    `${BASE_URL}/rates?base=${baseCurrency}&from=${fromDate}`,
+    `${BASE_URL}/rates?base=${baseCurrency}&from=${fromDate}&quotes=UAH`,
   );
 
   if (!response.ok) {

@@ -18,7 +18,7 @@ export function ExchangeItem({
     <div className="exchange-widget__curency">
       <div className="exchange-widget__curency-wrapper">
         {isRatesLoading ? (
-          <Loader className="exchange-widget__loader" />
+          <Loader className="loader" />
         ) : (
           <div className="exchange-widget__input">
             <div className="exchange-widget__symbol">{currencySymbol}</div>
@@ -49,7 +49,7 @@ export function ExchangeItem({
         )}
 
         {isLoading ? (
-          <Loader className="exchange-widget__loader" />
+          <Loader className="loader" />
         ) : (
           <div className="exchange-widget__select">
             <button
